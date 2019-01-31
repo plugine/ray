@@ -129,16 +129,16 @@
   }
 
   div::-webkit-scrollbar-thumb {
-    background: #e4e4e4;
+    background: #ffffff;
     border-radius: 5px;
   }
 
   div::-webkit-scrollbar-track {
-    background: #f9f9f9;
+    background: #ffffff;
   }
 
   div::-webkit-scrollbar-corner {
-    background: #f9f9f9;
+    background: #ffffff;
   }
 
   /********** Additional global styles **********/

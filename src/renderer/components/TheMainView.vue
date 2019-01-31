@@ -71,6 +71,7 @@
 
   .mv-wrapper {
     height: 100vh;
+    background-color: white;
   }
 
   .mv-main {

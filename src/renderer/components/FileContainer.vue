@@ -30,6 +30,7 @@
   import { mapState, mapGetters } from 'vuex'
   import FileEditor from './FileEditor'
   import FileViewer from './FileViewer'
+  import $ from 'jquery'
 
   export default {
     name: 'file-container',
@@ -51,11 +52,16 @@
         filesSettings: state => state.settings.files
       }),
       ...mapGetters([
-        'allowShortcuts'
+        'allowShortcuts',
+        'getTopBarVisible'
       ])
     },
 
     watch: {
+      getTopBarVisible (n) {
+        console.log('changed', n)
+        this.toggleTabVisible(n)
+      },
       busMessageFile (message) {
         if (!message) return
         switch (message.text) {
@@ -189,7 +195,7 @@
         if (this.allowShortcuts && currentEditorComponent) currentEditorComponent.formatText('list', 'ordered')
       })
       // Shortcuts for align
-      this.$Mousetrap.bindGlobal(['command+shift+l', 'ctrl+shift+l'], () => {
+      this.$Mousetrap.bindGlobal(['command+shift+w', 'ctrl+shift+w'], () => {
         const currentEditorComponent = this.getActiveEditorComponent()
         if (this.allowShortcuts && currentEditorComponent) currentEditorComponent.formatText('align', false)
       })
@@ -219,11 +225,22 @@
         const currentEditorComponent = this.getActiveEditorComponent()
         if (this.allowShortcuts && currentEditorComponent) currentEditorComponent.removeFormat()
       })
+      this.toggleTabVisible(false)
     },
 
     methods: {
       getActiveEditorComponent () {
         return this.$refs.ref_editors.find(e => e.active)
+      },
+      toggleTabVisible (display) {
+        if (!this.tabsHeaderElement) return
+        console.log('toggle tab visible')
+        console.log(this.tabsHeaderElement)
+        if (display) {
+          $(this.tabsHeaderElement).removeClass('nondisplay')
+        } else {
+          $(this.tabsHeaderElement).addClass('nondisplay')
+        }
       },
       openFile (filePath) {
         if (filePath) this.$store.dispatch('openFile', { filePath, setCurrent: true })
@@ -374,6 +391,9 @@
     right: 0;
     height: 2px;
     opacity: 0.4;
-    background-color: #bbb;
+    background-color: #fff;
+  }
+  .nondisplay {
+    display: none;
   }
 </style>

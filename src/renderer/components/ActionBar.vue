@@ -1,5 +1,5 @@
 <template>
-  <div class="ab-wrapper">
+  <div class="ab-wrapper" :class="{nondisplay: !getTopBarVisible}">
     <div class="ab-group">
       <div class="ab-group-1">
         <el-button class="ab-button" :class="{ highlighted: displaySidebar }" @click="toggleProjectBar"><i class="fas fa-bars"></i></el-button>
@@ -63,7 +63,7 @@
 </template>
 
 <script>
-  import { mapState } from 'vuex'
+  import { mapState, mapGetters } from 'vuex'
 
   export default {
     name: 'action-bar',
@@ -79,7 +79,10 @@
         currentFile: state => state.currentFile,
         displaySidebar: state => state.view.sidebar.visible,
         recentFiles: state => state.recentFiles
-      })
+      }),
+      ...mapGetters([
+        'getTopBarVisible'
+      ])
     },
 
     methods: {
@@ -158,7 +161,7 @@
     }
 
     & .el-button:focus {
-      background-color: #ceeefd;
+      background-color: #f1f1f1;
     }
 
     & .el-button:hover {

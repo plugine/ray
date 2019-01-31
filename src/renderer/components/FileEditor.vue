@@ -133,21 +133,19 @@
       const toolbarOptions = {
         container: [
           [{ 'header': [1, 2, 3, 4, 5] }],
-          [{ 'font': [] }],
           [{ 'size': ['small', false, 'large'] }],
-          ['bold', 'italic', 'underline', 'strike'],
+          ['bold', 'underline', 'strike'],
           ['blockquote', 'code-block'],
           [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'align': [] }],
           [{ 'script': 'super' }, { 'script': 'sub' }],
           [{ 'indent': '-1' }, { 'indent': '+1' }],
           // [{ 'direction': 'rtl' }],
           [{ 'color': [] }, { 'background': [] }],
-          ['link', 'image', 'video'],
-          ['clean']
+          ['link', 'image']
         ]
       }
       const options = {
-        placeholder: `Let's type something interesting here...`,
+        placeholder: ``,
         theme: 'snow',
         modules: {
           toolbar: toolbarOptions,
@@ -375,4 +373,16 @@
     overflow: auto;
     flex: 1;
   }
+  .ql-showHtml:after {
+    content: "[source]";
+  }
+  .ql-editor {
+    & h1, & h2, & h3, & h4, & h5, & h6 {
+      font-weight: normal;
+    }
+  }
+  .ql-editor * {
+    font-weight: normal;
+  }
+  
 </style>

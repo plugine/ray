@@ -103,6 +103,9 @@
       this.$Mousetrap.bindGlobal(['command+alt+w', 'ctrl+alt+w'], () => {
         if (this.allowShortcuts) this.$store.commit('PROJECT_SET_CURRENT', null)
       })
+      this.$Mousetrap.bindGlobal(['command+g', 'ctrl+g'], () => {
+        if (this.allowShortcuts) this.toggleTopBar()
+      })
       this.$Mousetrap.bindGlobal(['command+alt+=', 'ctrl+alt+='], () => {
         if (this.allowShortcuts) this.$store.commit('BUS_ADD_MESSAGE', { section: 'project', message: { text: 'add-files', filePath: this.currentFile.path } })
       })
@@ -120,6 +123,9 @@
             setCurrent: true
           })
         }).catch(() => {})
+      },
+      toggleTopBar () {
+        this.$store.commit('VIEW_TOGGLE_TOP_BAR')
       },
       renameProject (projectName) {
         if (!projectName) return

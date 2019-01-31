@@ -15,7 +15,7 @@ import { defaultValues, renderHtml } from '../utils'
 Vue.use(Vuex)
 
 const appConfig = remote.getGlobal('config')
-const fontFamily = 'BlinkMacSystemFont,Segoe UI,Oxygen,Ubuntu,Cantarell,Helvetica Neue,sans-serif'
+const fontFamily = 'PingFang SC, BlinkMacSystemFont,Segoe UI,Oxygen,Ubuntu,Cantarell,Helvetica Neue,sans-serif'
 const maxRecentFiles = 5
 let newFileId = 1
 
@@ -59,6 +59,9 @@ const state = {
     },
     dialogHelp: {
       visible: false
+    },
+    topBar: {
+      visible: false
     }
   }
 }
@@ -74,7 +77,6 @@ const getters = {
     style += `font-family:${s.mainFont === 'Auto' ? fontFamily : s.mainFont + ',' + fontFamily};`
     style += `font-size:${s.baseFontSize}px;`
     style += `color:${s.fontColor};`
-    style += `background-color:${s.backgroundColor};`
     style += `line-height:${s.lineHeight};`
     return style
   },
@@ -95,6 +97,9 @@ const getters = {
   },
   getActiveFileByPath: state => path => {
     return state.activeFiles.find(file => file.path === path)
+  },
+  getTopBarVisible: state => {
+    return state.view.topBar.visible
   }
 }
 
@@ -233,6 +238,12 @@ const mutations = {
   [types.VIEW_TOGGLE_SIDEBAR] (state, flag) {
     if (flag !== undefined) state.view.sidebar.visible = flag
     else state.view.sidebar.visible = !state.view.sidebar.visible
+  },
+
+  [types.VIEW_TOGGLE_TOP_BAR] (state, flag) {
+    console.log('set new state', state.view.topBar)
+    if (flag !== undefined) state.view.topBar.visible = flag
+    else state.view.topBar.visible = !state.view.topBar.visible
   },
 
   [types.VIEW_TOGGLE_TOOLBAR] (state, { toolbar, flag }) {
